@@ -29,8 +29,8 @@ export const signup = async (req, res) => {
       password: hashedPassword,
     });
     if (newUser) {
-      generateToken(newUser._id, res);
-      await newUser.save();
+      const savedUser = await newUser.save();
+      generateToken(savedUser._id, res);
       res.status(201).json({
         _id: newUser._id,
         fullName: newUser.fullName,
@@ -44,6 +44,9 @@ export const signup = async (req, res) => {
     }
     // send email to the user welcoming the user using gamil
   } catch (error) {
+    if (error?.code === 11000) {
+      return res.status(409).json({ message: "email already exist" });
+    }
     console.log("Error in signup controller", error);
     res.status(500).json({
       message: "Internal server error",
