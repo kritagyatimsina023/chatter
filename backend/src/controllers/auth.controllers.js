@@ -1,3 +1,5 @@
+import { sendWelcomeEmail } from "../emails/emailHandlers.js";
+import { ENV } from "../lib/env.js";
 import { generateToken } from "../lib/utils.js";
 import User from "../model/User.js";
 import bcrypt from "bcryptjs";
@@ -37,12 +39,21 @@ export const signup = async (req, res) => {
         email: newUser.email,
         profilePic: newUser.profilePic,
       });
+      // send email to the user welcoming the user using gamil
+      try {
+        await sendWelcomeEmail(
+          savedUser.email,
+          savedUser.fullName,
+          ENV.CLIENT_URL,
+        );
+      } catch (error) {
+        console.error("failed to send welcome email message", error);
+      }
     } else {
       res.status(400).json({
         message: "Invalid user data",
       });
     }
-    // send email to the user welcoming the user using gamil
   } catch (error) {
     if (error?.code === 11000) {
       return res.status(409).json({ message: "email already exist" });
