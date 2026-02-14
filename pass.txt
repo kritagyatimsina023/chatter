@@ -1,0 +1,2 @@
+user=kritagyatimsina_db_user
+pass=5MjUPhMs68588QXf
