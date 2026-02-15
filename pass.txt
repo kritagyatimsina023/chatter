@@ -12,3 +12,26 @@ status code 49 -> to many request
 
 aecjet.com 
 use for rate limiting , bot detection , email validation
+
+
+Messages:
+
+A → B
+A → B
+B → A
+A → C
+
+After map():
+
+[B, B, B, C]
+
+ Duplicate IDs exist.
+3️ What does new Set(...) do?
+new Set([B, B, B, C])
+Set = only unique values allowed
+
+Result:
+
+Set { B, C }
+
+👉 Automatically removes duplicates.
