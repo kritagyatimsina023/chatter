@@ -41,15 +41,15 @@ export const signup = async (req, res) => {
         profilePic: newUser.profilePic,
       });
       // send email to the user welcoming the user using gamil
-      try {
-        await sendWelcomeEmail(
-          savedUser.email,
-          savedUser.fullName,
-          ENV.CLIENT_URL,
-        );
-      } catch (error) {
-        console.error("failed to send welcome email message", error);
-      }
+      // try {
+      //   await sendWelcomeEmail(
+      //     savedUser.email,
+      //     savedUser.fullName,
+      //     ENV.CLIENT_URL,
+      //   );
+      // } catch (error) {
+      //   console.error("failed to send welcome email message", error);
+      // }
     } else {
       res.status(400).json({
         message: "Invalid user data",
