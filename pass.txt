@@ -1,2 +1,14 @@
 user=kritagyatimsina_db_user
 pass=5MjUPhMs68588QXf
+
+rate limiting : 
+Is a way to control how often someone can do something on a website or app like how many times they can refresh oage , make a request to an api 
+ot try to login 
+Only 100 request pre user every 2 mins
+
+rate limiting hepls in preventing abuse and protecting servers from getting overwhelmed
+
+status code 49 -> to many request
+
+aecjet.com 
+use for rate limiting , bot detection , email validation
