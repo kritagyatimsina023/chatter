@@ -17,7 +17,7 @@ const __dirname = path.resolve();
 // console.log(process.env.PORT);
 const port = ENV.PORT || 3000;
 
-app.use(express.json()); // to get access to the field the user gets
+app.use(express.json({ limit: "10mb" })); // to get access to the field the user gets
 app.use(cors({ origin: ENV.CLIENT_URL, credentials: true }));
 app.use(cookieParser());
 
