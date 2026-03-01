@@ -22,6 +22,7 @@ const ChatsList = () => {
           onClick={() => setSelectedUser(chat)}
         >
           <div className="flex items-center gap-3">
+            {/* // make it work with socket.io  */}
             <div className={`avatar online}`}>
               <div className="size-12 rounded-full">
                 <img
