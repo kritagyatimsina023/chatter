@@ -10,7 +10,7 @@ export const useChatStore = create((set, get) => ({
   selectedUser: null,
   isUsersLoading: false,
   isMessagesLoading: false,
-  isSoundEnabled: localStorage.getItem("isSoundEnabled") === true,
+  isSoundEnabled: JSON.parse(localStorage.getItem("isSoundEnabled")) === true,
   toggleSound: () => {
     localStorage.setItem("isSoundEnabled", !get().isSoundEnabled); // updating the local storage
     set({ isSoundEnabled: !get().isSoundEnabled }); // now updating the ui
@@ -20,7 +20,7 @@ export const useChatStore = create((set, get) => ({
   getAllContacts: async () => {
     set({ isUsersLoading: true });
     try {
-      const res = await axiosInstances.get("/message/contacts");
+      const res = await axiosInstances.get("/messages/contacts");
       set({ allContacts: res.data });
     } catch (error) {
       toast.error(error.response.data.message);
@@ -31,7 +31,8 @@ export const useChatStore = create((set, get) => ({
   getMyChatPartners: async () => {
     set({ isUsersLoading: true });
     try {
-      const res = await axiosInstances.get("/message/chats");
+      const res = await axiosInstances.get("/messages/chats");
+      console.log("This is chat response", res.data);
       set({ chats: res.data });
     } catch (error) {
       toast.error(error.response.data.message);

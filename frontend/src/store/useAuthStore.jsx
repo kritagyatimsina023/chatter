@@ -9,6 +9,7 @@ export const useAuthStore = create((set) => ({
   isSignUp: false,
   isLoggingIn: false,
   isLoggingOut: false,
+  isImageLoading: false,
   checkAuth: async () => {
     try {
       const res = await axiosInstances.get("/auth/check");
@@ -59,6 +60,20 @@ export const useAuthStore = create((set) => ({
       console.log(error);
     } finally {
       set({ isLoggingOut: false });
+    }
+  },
+  updateProfile: async (data) => {
+    set({ isImageLoading: true });
+    try {
+      const res = await axiosInstances.put("/auth/update-profile", data);
+      // await new Promise((resolve) => setTimeout(resolve, 1000));
+      set({ authUser: res.data });
+      toast.success("Profile uploaded successfully");
+    } catch (error) {
+      console.log("Error uploading profile image", error);
+      toast.error("Errro uploading profile pic");
+    } finally {
+      set({ isImageLoading: false });
     }
   },
 }));

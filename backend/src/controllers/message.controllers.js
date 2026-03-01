@@ -4,6 +4,7 @@ import User from "../model/User.js";
 export const getAllContacts = async (req, res) => {
   try {
     const loggedInUserId = req.user._id;
+    console.log("logged in user id", loggedInUserId);
     const filteredUsers = await User.find({
       _id: { $ne: loggedInUserId },
     }).select("-password"); // fetching all the contacts of the user except the current logged in user
@@ -17,7 +18,6 @@ export const getMessagesByUserId = async (req, res) => {
   try {
     const myId = req.user._id;
     const { id: userToChatId } = req.params; // other user id
-
     // me and you
     // me sending message to you
     // you sending message to me
@@ -94,6 +94,7 @@ export const getChatsPartners = async (req, res) => {
     const chatPartners = await User.find({
       _id: { $in: chatPartnersId },
     }).select("-password");
+    console.log("this is chat partners", chatPartners);
     res.status(200).json(chatPartners);
   } catch (error) {
     console.log("Error in getting chat partners", error);
