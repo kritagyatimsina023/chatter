@@ -1,7 +1,23 @@
 import { MessageCircleIcon } from "lucide-react";
-import React from "react";
+import React, { useState } from "react";
+import { useChatStore } from "../store/useChatStore";
 
 const NoChatHistoryPlaceholder = ({ name }) => {
+  const { sendMessage } = useChatStore();
+  const [text, setText] = useState("hello");
+  const [textOne, setTextOne] = useState("How are you?");
+
+  const handleSayHello = () => {
+    sendMessage({
+      text: text.trim(),
+    });
+  };
+  const handleHowAreYou = () => {
+    sendMessage({
+      text: textOne.trim(),
+    });
+  };
+
   return (
     <div className="flex flex-col items-center justify-center h-full text-center p-6">
       <div className="w-16 h-16 bg-gradient-to-br from-cyan-500/20 to-cyan-400/10 rounded-full flex items-center justify-center mb-5">
@@ -18,10 +34,16 @@ const NoChatHistoryPlaceholder = ({ name }) => {
         <div className="h-px w-32 bg-gradient-to-r from-transparent via-cyan-500/30 to-transparent mx-auto"></div>
       </div>
       <div className="flex flex-wrap gap-2 justify-center">
-        <button className="px-4 py-2 text-xs font-medium text-cyan-400 bg-cyan-500/10 rounded-full hover:bg-cyan-500/20 transition-colors">
+        <button
+          onClick={handleSayHello}
+          className="px-4 py-2 text-xs font-medium text-cyan-400 bg-cyan-500/10 rounded-full hover:bg-cyan-500/20 transition-colors"
+        >
           👋 Say Hello
         </button>
-        <button className="px-4 py-2 text-xs font-medium text-cyan-400 bg-cyan-500/10 rounded-full hover:bg-cyan-500/20 transition-colors">
+        <button
+          onClick={handleHowAreYou}
+          className="px-4 py-2 text-xs font-medium text-cyan-400 bg-cyan-500/10 rounded-full hover:bg-cyan-500/20 transition-colors"
+        >
           🤝 How are you?
         </button>
         <button className="px-4 py-2 text-xs font-medium text-cyan-400 bg-cyan-500/10 rounded-full hover:bg-cyan-500/20 transition-colors">
