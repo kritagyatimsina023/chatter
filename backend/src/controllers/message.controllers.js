@@ -94,7 +94,7 @@ export const getChatsPartners = async (req, res) => {
     const chatPartners = await User.find({
       _id: { $in: chatPartnersId },
     }).select("-password");
-    console.log("this is chat partners", chatPartners);
+    // console.log("this is chat partners", chatPartners);
     res.status(200).json(chatPartners);
   } catch (error) {
     console.log("Error in getting chat partners", error);
