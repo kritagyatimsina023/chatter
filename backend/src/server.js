@@ -8,10 +8,10 @@ import { connectDb } from "./lib/db.js";
 import { ENV } from "./lib/env.js";
 import cookieParser from "cookie-parser";
 import cors from "cors";
+import { app, server } from "./lib/socket.js";
 
 dotenv.config();
 
-const app = express();
 const __dirname = path.resolve();
 
 // console.log(process.env.PORT);
@@ -35,7 +35,11 @@ if (ENV.NODE_ENV === "production") {
     );
   });
 }
-app.listen(port, async () => {
+// app.listen(port, async () => {
+//   console.log(`Server is running on port ${port}`);
+//   await connectDb();
+// });
+server.listen(port, async () => {
   console.log(`Server is running on port ${port}`);
   await connectDb();
 });
