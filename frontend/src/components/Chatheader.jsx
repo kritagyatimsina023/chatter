@@ -36,7 +36,7 @@ const Chatheader = () => {
             {selectedUser.fullName}
           </h3>
           <p className="text-slate-400 text-sm">
-            {isOnline ? "online" : "offline"}
+            {isOnline ? "Online" : "Offline"}
           </p>
         </div>
       </div>
