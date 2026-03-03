@@ -1,4 +1,5 @@
 import cloudinary from "../lib/cloudinary.js";
+import { getReceiverSocketId, io } from "../lib/socket.js";
 import Message from "../model/Message.js";
 import User from "../model/User.js";
 export const getAllContacts = async (req, res) => {
@@ -36,7 +37,9 @@ export const getMessagesByUserId = async (req, res) => {
 };
 export const sendMessage = async (req, res) => {
   try {
+    console.log("This is send message endpoint");
     const { text, image } = req.body;
+    console.log("send message text and image", text, image);
     const { id: receiverId } = req.params;
     const senderId = req.user._id;
     if (!text && !image) {
@@ -68,6 +71,11 @@ export const sendMessage = async (req, res) => {
     await newMessage.save();
     res.status(201).json(newMessage);
     // todo : implement real time functionalities - socket.io
+    const receiverSocketId = getReceiverSocketId(receiverId);
+    // sending the message (event ) to only the receiver
+    if (receiverSocketId) {
+      io.to(receiverSocketId).emit("newMessage", newMessage);
+    }
   } catch (error) {
     console.log("Error in sending messages", error);
     res.status(500).json({ message: "Internal server error" });
