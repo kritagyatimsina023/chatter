@@ -18,6 +18,11 @@ const io = new Server(server, {
 //apply authentication middleware to all socket connection
 io.use(socketAuthMiddleware);
 
+// using this function to check id the user is online or not
+export function getReceiverSocketId(userId) {
+  return userSocketMap[userId];
+}
+
 // for torking the online user
 const userSocketMap = {}; // {userId:socketId}
 
